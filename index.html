@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyNews PH - AI-Driven News Verification Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-wrapper">
+            <div class="nav-brand">
+                <span class="logo-icon">✓</span>
+                <span class="logo-text">VerifyNews PH</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" data-page="home" class="nav-link active">Home</a>
+                <a href="#" data-page="verify" class="nav-link">Verify</a>
+                <a href="#" data-page="trending" class="nav-link">Alerts</a>
+                <a href="#" data-page="learn" class="nav-link">Learn</a>
+                <a href="#" data-page="report" class="nav-link">Report</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Stop Misinformation Before It Spreads</h1>
+                    <p>Advanced AI-powered news verification for the Philippines. Verify headlines, articles, and social media claims instantly.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="switchPage('verify')">Start Verifying</button>
+                        <button class="btn btn-secondary" onclick="switchPage('learn')">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Platform Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Instant Verification</h3>
+                        <p>Paste any news link or headline and get AI-powered verification results in seconds.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚠️</div>
+                        <h3>Trending Alerts</h3>
+                        <p>Stay updated on viral misinformation circulating online with real-time alerts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>Educational Hub</h3>
+                        <p>Learn digital literacy skills and spot common misinformation tactics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Community Reports</h3>
+                        <p>Help improve our AI by reporting suspected misinformation and providing feedback.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Source Analysis</h3>
+                        <p>See detailed breakdowns of sources, reasoning, and confidence scores.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Secure & Private</h3>
+                        <p>Your searches are private. We don't store personal data or verification history.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container stats-grid">
+                <div class="stat-card">
+                    <h3>5.2M+</h3>
+                    <p>News Items Verified</p>
+                </div>
+                <div class="stat-card">
+                    <h3>98.7%</h3>
+                    <p>Verification Accuracy</p>
+                </div>
+                <div class="stat-card">
+                    <h3>45K+</h3>
+                    <p>Active Users (Philippines)</p>
+                </div>
+                <div class="stat-card">
+                    <h3>1.2M</h3>
+                    <p>Community Reports</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Verify Page -->
+    <div id="verify" class="page">
+        <div class="container page-content">
+            <h2 class="page-title">News Verification Tool</h2>
+            <p class="page-subtitle">Paste a news link or type a headline to get instant AI verification</p>
+
+            <!-- Search Input -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="newsInput" 
+                        class="search-input" 
+                        placeholder="Paste a news link or type a headline here..."
+                    >
+                    <button class="search-btn" onclick="verifyNews()">Verify</button>
+                </div>
+                <div class="example-links">
+                    <span>Quick test:</span>
+                    <button onclick="testVerify('President signs new education law')" class="example-btn">Test 1</button>
+                    <button onclick="testVerify('Local celebrity tests positive')" class="example-btn">Test 2</button>
+                    <button onclick="testVerify('Breaking: New vaccine side effect discovered')" class="example-btn">Test 3</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsContainer" class="results-container hidden">
+                <!-- Article Display -->
+                <div class="article-display">
+                    <h3>Submitted News</h3>
+                    <p id="submittedArticle"></p>
+                </div>
+
+                <!-- Verification Result -->
+                <div class="result-card" id="resultCard">
+                    <div class="result-badge" id="resultBadge"></div>
+                    <div class="result-details">
+                        <h3 id="resultStatus"></h3>
+                        <p id="resultExplanation"></p>
+                    </div>
+                </div>
+
+                <!-- Sources Panel -->
+                <div class="sources-panel">
+                    <h3>Analysis Details</h3>
+                    <div class="analysis-grid">
+                        <div class="analysis-item">
+                            <span class="label">Confidence Score</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidenceFill"></div>
+                            </div>
+                            <span class="score" id="confidenceScore"></span>
+                        </div>
+                        <div class="analysis-item">
+                            <span class="label">Primary Sources</span>
+                            <p id="sources"></p>
+                        </div>
+                        <div class="analysis-item">
+                            <span class="label">Category</span>
+                            <p id="category"></p>
+                        </div>
+                        <div class="analysis-item">
+                            <span class="label">Last Updated</span>
+                            <p id="lastUpdated"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback -->
+                <div class="feedback-section">
+                    <button class="feedback-btn" onclick="toggleFeedback()">Disagree? Submit Feedback</button>
+                    <div id="feedbackForm" class="feedback-form hidden">
+                        <h4>Help us improve</h4>
+                        <select id="feedbackType" class="feedback-select">
+                            <option>Select feedback type...</option>
+                            <option>Incorrect verification result</option>
+                            <option>Missing credible sources</option>
+                            <option>Biased analysis</option>
+                            <option>Other issue</option>
+                        </select>
+                        <textarea id="feedbackText" placeholder="Tell us what went wrong..." class="feedback-textarea"></textarea>
+                        <div class="feedback-actions">
+                            <button onclick="submitFeedback()" class="btn-submit">Submit Feedback</button>
+                            <button onclick="toggleFeedback()" class="btn-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trending Alerts Page -->
+    <div id="trending" class="page">
+        <div class="container page-content">
+            <h2 class="page-title">Trending Misinformation Alerts</h2>
+            <p class="page-subtitle">Stay informed about viral fake news currently circulating</p>
+
+            <div class="alert-tabs">
+                <button class="tab-btn active" onclick="filterAlerts('all')">All Alerts</button>
+                <button class="tab-btn" onclick="filterAlerts('health')">Health & Science</button>
+                <button class="tab-btn" onclick="filterAlerts('politics')">Politics</button>
+                <button class="tab-btn" onclick="filterAlerts('finance')">Finance</button>
+                <button class="tab-btn" onclick="filterAlerts('tech')">Technology</button>
+            </div>
+
+            <div class="alerts-grid" id="alertsGrid">
+                <!-- Alerts populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Learning Hub Page -->
+    <div id="learn" class="page">
+        <div class="container page-content">
+            <h2 class="page-title">Digital Literacy & Media Awareness</h2>
+            <p class="page-subtitle">Learn how to identify misinformation and become a critical media consumer</p>
+
+            <div class="edu-categories">
+                <button class="category-btn active" onclick="filterEdu('all')">All Topics</button>
+                <button class="category-btn" onclick="filterEdu('spotting')">Spotting Fakes</button>
+                <button class="category-btn" onclick="filterEdu('sources')">Evaluating Sources</button>
+                <button class="category-btn" onclick="filterEdu('social')">Social Media Tricks</button>
+                <button class="category-btn" onclick="filterEdu('verification')">Verification Tips</button>
+            </div>
+
+            <div class="edu-content-grid" id="eduGrid">
+                <!-- Educational content populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Page -->
+    <div id="report" class="page">
+        <div class="container page-content">
+            <h2 class="page-title">Report Misinformation</h2>
+            <p class="page-subtitle">Help us combat fake news by reporting suspected misinformation</p>
+
+            <div class="report-form-container">
+                <form id="reportForm" class="report-form">
+                    <div class="form-group">
+                        <label for="reportTitle">News Headline/Title</label>
+                        <input type="text" id="reportTitle" required placeholder="Enter the headline or title...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportContent">Content or URL</label>
+                        <textarea id="reportContent" required placeholder="Paste the content or URL of the suspicious news..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportSource">Where did you see it?</label>
+                        <select id="reportSource" required>
+                            <option>Select source...</option>
+                            <option>Facebook</option>
+                            <option>Twitter/X</option>
+                            <option>TikTok</option>
+                            <option>YouTube</option>
+                            <option>News Website</option>
+                            <option>WhatsApp/Messenger</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportCategory">Category</label>
+                        <select id="reportCategory" required>
+                            <option>Select category...</option>
+                            <option>Health & Medicine</option>
+                            <option>Politics & Elections</option>
+                            <option>Finance & Business</option>
+                            <option>Technology</option>
+                            <option>Celebrity & Entertainment</option>
+                            <option>Disaster/Emergency</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reportReason">Why do you think this is misinformation?</label>
+                        <textarea id="reportReason" required placeholder="Explain your concerns..."></textarea>
+                    </div>
+
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="reportConsent" required>
+                        <label for="reportConsent">I understand this report will be reviewed by our team</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Report</button>
+                </form>
+            </div>
+
+            <div class="report-guidelines">
+                <h3>Guidelines for Reporting</h3>
+                <ul>
+                    <li>Be specific about what makes this news suspicious</li>
+                    <li>Provide context where applicable</li>
+                    <li>Report only news you genuinely suspect to be false</li>
+                    <li>Your report helps train our AI system for better verification</li>
+                    <li>All reports are reviewed by our human fact-checking team</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 VerifyNews PH. Fighting misinformation for a better informed Philippines.</p>
+            <p>Contact: info@verifynews.ph | Report abuse: abuse@verifynews.ph</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
